@@ -17,16 +17,30 @@ class DropZoneDemo extends Component {
     });
   }
 
+  openFile = () => {
+    const { files } = this.state
+    console.log(files)
+
+    let reader = new FileReader()
+
+    reader.readAsText(files[0])
+    reader.onloadend = () => {
+      console.log(reader.result)
+    }
+    
+  }
+
   onOpenClick = () => {
     this.refs.dropzone.open();
   }
 
   render () {
-    const { files } = this.state 
-
+    const { files } = this.state
+    
     return (
       <div>
         <Dropzone ref="dropzone" onDrop={this.onDrop} />
+        <button onClick={this.openFile}>File Open</button>
         <div>
           <h2>Uploading {files.length} files...</h2>
           <div>
