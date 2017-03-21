@@ -23,10 +23,10 @@ class DropZoneDemo extends Component {
 
     let reader = new FileReader()
 
-    reader.readAsText(files[0])
     reader.onloadend = () => {
       console.log(reader.result)
     }
+    reader.readAsBinaryString(files[0])
     
   }
 
