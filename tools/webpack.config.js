@@ -291,6 +291,13 @@ const clientConfig = extend(true, {}, config, {
     net: 'empty',
     tls: 'empty',
   },
+
+  externals: [
+    {
+      './cptable': 'var cptable',
+      './jszip': 'jszip'
+    }
+  ]
 });
 
 //
@@ -317,6 +324,10 @@ const serverConfig = extend(true, {}, config, {
         !request.match(/\.(css|less|scss|sss)$/i);
       callback(null, Boolean(isExternal));
     },
+    {
+      './cptable': 'var cptable',
+      './jszip': 'jszip'
+    }
   ],
 
   plugins: [

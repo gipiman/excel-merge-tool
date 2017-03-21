@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import Dropzone from '../DropZone'
+//import xlsx from 'xlsx'
+import xlsxStyle from 'xlsx-style'
+import fileSaver from 'file-saver'
 
 class DropZoneDemo extends Component {
   constructor () {
@@ -19,14 +22,18 @@ class DropZoneDemo extends Component {
 
   openFile = () => {
     const { files } = this.state
-    console.log(files)
-
     let reader = new FileReader()
 
-    reader.readAsText(files[0])
     reader.onloadend = () => {
-      console.log(reader.result)
+      let data = xlsxStyle.read(reader.result, {type: 'binary'})
+      let wopts = { bookType:'xlsx', bookSST:false, type:'binary' }
+      let file = xlsxStyle.write(data, {type: 'binary'})
+      
+      let blob = new Blob([file])
+      console.log(blob, file.length)
+      fileSaver.saveAs(blob, 'test.xlsx')
     }
+     reader.readAsBinaryString(files[0])
     
   }
 
