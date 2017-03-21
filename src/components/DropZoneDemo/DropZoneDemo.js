@@ -26,12 +26,17 @@ class DropZoneDemo extends Component {
 
     reader.onloadend = () => {
       let data = xlsxStyle.read(reader.result, {type: 'binary'})
-      let wopts = { bookType:'xlsx', bookSST:false, type:'binary' }
-      let file = xlsxStyle.write(data, {type: 'binary'})
-      
-      let blob = new Blob([file])
-      console.log(blob, file.length)
-      fileSaver.saveAs(blob, 'test.xlsx')
+      let wopts = { bookType:'xlsx', bookSST:false, type:'binary' };
+      let wbout = xlsxStyle.write(data, wopts);
+
+      function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+      }
+
+      fileSaver.saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "test.xlsx");
     }
      reader.readAsBinaryString(files[0])
     
