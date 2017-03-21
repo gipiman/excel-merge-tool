@@ -38,8 +38,8 @@ class DropZoneDemo extends Component {
 
       fileSaver.saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "test.xlsx");
     }
-     reader.readAsBinaryString(files[0])
     
+    reader.readAsBinaryString(files[0])
   }
 
   onOpenClick = () => {
